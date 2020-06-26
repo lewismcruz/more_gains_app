@@ -8,8 +8,8 @@ const mongoose = require("mongoose");
 // use for local testing of site before pre-deployment
 const PORT = 3000;
 
-const User = require("./workoutModel.js");
-const { db } = require("./workoutModel.js");
+const User = require("./workoutUserModel.js");
+const { db } = require("./workoutUserModel.js");
 
 const app = express();
 
