@@ -20,8 +20,15 @@ app.use(express.json());
 
 app.use(express.static("public"));
 
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/custommethoddb", { useNewUrlParser: true));
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workoutdb", { useNewUrlParser: true});
 
+//const db = mongojs(databaseUrl, collections);
+db.on("error", error => {
+    console.log("Database Error:", error);
+});
+
+// Routes
+// ==============================================================
 app.post("/submit", ({body}, res) => {
     // Creates a new workoutUser using req.body
     const workoutUser = new WorkoutUser(body);
@@ -41,6 +48,21 @@ app.post("/submit", ({body}, res) => {
 
 // We need to create our routes to addNewExercise(), getExerciseStats(), and loadPreviousWorkout();
 
+// Find all workouts created use get route
+app.get("/workout", (req, res) => {
+    db.workout
+});
+
+
+// To add an exercise to the database we use put route
+app.put("/markread/:id", (req, res) => {
+
+
+});
+
+
+// To find items from database we use get
+app.get("/", (req, res) => {});
 
 
 
