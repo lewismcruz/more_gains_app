@@ -1,7 +1,7 @@
 let mongoose = require("mongoose");
-let db = require("../workoutUserModel");
+let db = require("../models");
 
-mongoose.connect("mongodb://localhost/workout", {
+mongoose.connect("mongodb://localhost/workoutdb", {
   useNewUrlParser: true,
   useFindAndModify: false
 });
@@ -145,3 +145,4 @@ db.Workout.deleteMany({})
     console.error(err);
     process.exit(1);
   });
+

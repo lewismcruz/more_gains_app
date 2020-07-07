@@ -8,8 +8,8 @@ const mongoose = require("mongoose");
 // use for local testing of site before pre-deployment
 const PORT = 3000;
 
-const User = require("./workoutUserModel.js");
-const { db } = require("./workoutUserModel.js");
+//const User = require("./ExerciseModel.js");
+const db = require("./models");
 
 const app = express();
 
@@ -22,52 +22,9 @@ app.use(express.static("public"));
 
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workoutdb", { useNewUrlParser: true});
 
-//const db = mongojs(databaseUrl, collections);
-db.on("error", error => {
-    console.log("Database Error:", error);
-});
 
-// Routes
-// ==============================================================
-app.post("/submit", ({body}, res) => {
-    // Creates a new workoutUser using req.body
-    const workoutUser = new WorkoutUser(body);
-    workoutUser.addNewExercise();
-    workoutUser.getExerciseStats();
-    workoutUser.loadPreviousWorkout();
-
-    //
-    WorkoutUser.create(workoutUser)
-      .then(dbWorkoutUser => {
-          res.json(dbWorkoutUser);
-        })
-        .catch(err => {
-            res.json(err);
-        });
-});
-
-// We need to create our routes to addNewExercise(), getExerciseStats(), and loadPreviousWorkout();
-
-// Find all workouts created use get route
-app.get("/workout", (req, res) => {
-    db.workout
-});
-
-
-// To add an exercise to the database we use put route
-app.put("/markread/:id", (req, res) => {
-
-
-});
-
-
-// To find items from database we use get
-app.get("/", (req, res) => {});
-
-
-
-
-
+app.use(require("./routes/apiroutes"));
+app.use(require("./routes/htmlroutes"));
 
 
 // This starts our server
