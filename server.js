@@ -3,12 +3,12 @@ const logger = require("morgan");
 const mongoose = require("mongoose");
 
 // uncomment once app works locally, is tested, and deployed to heroku
-//const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3000;
 
 // use for local testing of site before pre-deployment
-const PORT = 3000;
+//const PORT = 3000;
 
-//const User = require("./ExerciseModel.js");
+
 const db = require("./models");
 
 const app = express();
@@ -20,7 +20,8 @@ app.use(express.json());
 
 app.use(express.static("public"));
 
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workoutdb", { useNewUrlParser: true});
+let MONGODB_URI = process.env.MONGODB_URI || "mongodb://user1:password1@ds157682.mlab.com:57682/heroku_w4l282nj";  
+mongoose.connect(MONGODB_URI);
 
 
 app.use(require("./routes/apiroutes"));
